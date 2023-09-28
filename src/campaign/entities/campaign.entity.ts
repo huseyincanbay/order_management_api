@@ -11,6 +11,6 @@ export class Campaign {
   @Column()
   name: string;
 
-  @OneToMany(() => Order, (order) => order.campaign)
+  @OneToMany(() => Order, (order) => order.campaign, { cascade: true })
   orders: Order[];
 }

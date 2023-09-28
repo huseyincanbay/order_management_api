@@ -13,7 +13,7 @@ import { CampaignService } from './campaign.service';
 import { CampaignDto } from './dto/create-campaign.dto';
 import { Campaign } from './entities/campaign.entity';
 
-@Controller('campaign')
+@Controller('campaigns')
 export class CampaignController {
   constructor(private readonly campaignService: CampaignService) {}
 

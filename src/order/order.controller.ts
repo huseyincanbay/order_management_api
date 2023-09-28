@@ -13,7 +13,7 @@ import { OrderService } from './order.service';
 import { OrderDto } from './dto/create-order.dto';
 import { Order } from './entities/order.entity';
 
-@Controller('order')
+@Controller('orders')
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
