@@ -1,12 +1,12 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { OrderDto } from './create-order.dto';
-import { IsNumber, IsPositive, IsString } from 'class-validator';
+import { IsNumber, IsPositive, IsNotEmpty } from 'class-validator';
 
 export class UpdateOrderDto extends PartialType(OrderDto) {
-  @IsString()
+  @IsNotEmpty({ message: 'At least one field must be provided for update.' })
   customerName?: string;
 
-  @IsString()
+  @IsNotEmpty({ message: 'At least one field must be provided for update.' })
   product?: string;
 
   @IsNumber()

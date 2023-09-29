@@ -6,6 +6,9 @@ export class UpdateCampaignDto extends PartialType(CampaignDto) {
   @IsString()
   name?: string;
 
+  @IsString() // Assuming 'type' is a string; adjust the validation as needed
+  type?: string;
+
   @IsNumber({}, { each: true })
   orders?: number[];
 }

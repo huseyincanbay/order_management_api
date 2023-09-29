@@ -1,12 +1,4 @@
-// order.entity.ts
-
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  JoinColumn,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { Campaign } from 'src/campaign/entities/campaign.entity'; // Import the Campaign Entity if you haven't already.
 
 @Entity()
@@ -24,6 +16,9 @@ export class Order {
   price: number;
 
   @ManyToOne(() => Campaign, (campaign) => campaign.orders)
-  @JoinColumn({ name: 'campaign_id' })
   campaign: Campaign;
+  productQuantity: number;
+  productPrice: any;
+  orderTotal: number;
+  viewOrders: any;
 }

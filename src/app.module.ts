@@ -3,9 +3,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { OrderModule } from './order/order.module';
+import { CampaignModule } from './campaign/campaign.module';
 import { Order } from './order/entities/order.entity';
 import { Campaign } from './campaign/entities/campaign.entity';
-import { CampaignModule } from './campaign/campaign.module';
+
 @Module({
   imports: [
     TypeOrmModule.forRoot({

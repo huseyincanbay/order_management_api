@@ -1,5 +1,3 @@
-// order.controller.ts
-
 import {
   Controller,
   Get,
@@ -8,6 +6,8 @@ import {
   Delete,
   Param,
   Body,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { OrderDto } from './dto/create-order.dto';
@@ -19,12 +19,22 @@ export class OrderController {
 
   @Post()
   async createOrder(@Body() orderDto: OrderDto): Promise<Order> {
-    return this.orderService.createOrder(orderDto);
+    try {
+      const createdOrder = await this.orderService.createOrder(orderDto);
+      return createdOrder;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Get(':id')
   async getOrderById(@Param('id') id: number): Promise<Order> {
-    return this.orderService.getOrderById(id);
+    try {
+      const order = await this.orderService.getOrderById(id);
+      return order;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    }
   }
 
   @Get()
@@ -37,11 +47,20 @@ export class OrderController {
     @Param('id') id: number,
     @Body() orderDto: OrderDto,
   ): Promise<Order> {
-    return this.orderService.updateOrder(id, orderDto);
+    try {
+      const updatedOrder = await this.orderService.updateOrder(id, orderDto);
+      return updatedOrder;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Delete(':id')
   async deleteOrder(@Param('id') id: number): Promise<void> {
-    return this.orderService.deleteOrder(id);
+    try {
+      await this.orderService.deleteOrder(id);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 }

@@ -1,6 +1,10 @@
-// order.dto.ts
-
-import { IsNotEmpty, IsNumber, IsString, IsPositive } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  IsPositive,
+  IsOptional,
+} from 'class-validator';
 
 export class OrderDto {
   @IsNotEmpty()
@@ -16,7 +20,7 @@ export class OrderDto {
   @IsPositive()
   price: number;
 
-  @IsNotEmpty()
+  @IsOptional() // Make campaignId optional
   @IsNumber()
-  campaignId: number; // This corresponds to the campaign the order belongs to.
+  campaignId?: number; // This corresponds to the campaign the order belongs to (optional).
 }

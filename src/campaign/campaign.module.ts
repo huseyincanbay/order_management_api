@@ -1,13 +1,14 @@
+// campaign.module.ts
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Campaign } from './entities/campaign.entity';
 import { CampaignService } from './campaign.service';
 import { CampaignController } from './campaign.controller';
+import { OrderModule } from '../order/order.module'; // Import the OrderModule
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Campaign])],
+  imports: [TypeOrmModule.forFeature([Campaign]), OrderModule], // Import OrderModule here
   providers: [CampaignService],
   controllers: [CampaignController],
-  exports: [CampaignService],
 })
 export class CampaignModule {}
