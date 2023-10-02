@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Campaign } from './entities/campaign.entity';
 import { CampaignDto } from './dto/create-campaign.dto';
-import { Order } from '../order/entities/order.entity'; // Import the Order Entity
+import { Order } from '../order/entities/order.entity';
 
 @Injectable()
 export class CampaignService {
@@ -51,40 +51,24 @@ export class CampaignService {
     await this.campaignRepository.remove(campaign);
   }
 
-  // Calculate the benefit of a campaign for a given order.
   calculateCampaignBenefit(campaign: Campaign, order: Order): number {
-    // Implement campaign-specific benefit calculation logic here.
+    let benefit = 0;
 
-    let benefit = 0; // Initialize benefit value.
-
-    // Example: "Victor Hugo's Novel books - Buy 2 get 1 free" campaign.
     if (campaign.type === 'buy2get1free') {
-      // Calculate the number of free items that can be added to the order.
       const eligibleQuantity = Math.floor(order.productQuantity / 2);
-
-      // Calculate the benefit as the total price of the free items.
-      // Replace 'productPrice' with the actual price of the product.
-      // For example, if each product costs 'productPrice', you can calculate the benefit like this:
-      const productPrice = order.productPrice; // Replace with the actual product price.
+      const productPrice = order.productPrice;
       benefit = eligibleQuantity * productPrice;
     }
-
-    // Example: "5% discount on orders over 100 TL" campaign.
     if (campaign.type === 'discount5percent') {
-      // Check if the order total is eligible for the discount.
       if (order.orderTotal >= 100) {
-        // Calculate the benefit as a percentage of the order total.
-        // Replace 'orderTotal' with the actual order total amount.
-        // For example, if the order total is 'orderTotal', you can calculate the benefit like this:
-        const orderTotal = order.orderTotal; // Replace with the actual order total.
+        const orderTotal = order.orderTotal;
         benefit = (orderTotal * 5) / 100;
       }
     }
 
-    return benefit; // Return the calculated benefit value.
+    return benefit;
   }
 
-  // Determine the most beneficial campaign for a given order.
   async getMostBeneficialCampaign(order: Order): Promise<Campaign> {
     let mostBeneficialCampaign: Campaign | null = null;
     let maxBenefit = 0;

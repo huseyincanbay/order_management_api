@@ -12,22 +12,19 @@ export class OrderDetailViewService {
   ) {}
 
   async getOrderDetails(orderId: number): Promise<OrderDetailsDto | null> {
-    // Implement logic to fetch order details by orderId from the view
     const orderDetails = await this.orderDetailViewRepository
       .createQueryBuilder('orderDetailView')
       .where('orderDetailView.orderId = :orderId', { orderId })
       .getOne();
 
     if (!orderDetails) {
-      return null; // Order not found
+      return null;
     }
 
-    // Map the data to OrderDetailsDto and return it
     const orderDetailsDto: OrderDetailsDto = {
       orderNumber: orderDetails.orderNumber,
       discountedAmount: orderDetails.discountedAmount,
       nonDiscountedAmount: orderDetails.nonDiscountedAmount,
-      // Map other properties as needed
     };
 
     return orderDetailsDto;

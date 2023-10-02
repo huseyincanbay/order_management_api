@@ -20,7 +20,7 @@ export class OrderDto {
   @IsPositive()
   price: number;
 
-  @IsOptional() // Make campaignId optional
+  @IsOptional()
   @IsNumber()
-  campaignId?: number; // This corresponds to the campaign the order belongs to (optional).
+  campaignId?: number;
 }

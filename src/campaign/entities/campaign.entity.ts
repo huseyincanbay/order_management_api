@@ -13,10 +13,8 @@ export class Campaign {
   @OneToMany(() => Order, (order) => order.campaign, { cascade: true })
   orders: Order[];
 
-  @Column({ type: 'varchar', length: 255, nullable: true }) // Adjust length as needed
-  type: string | null; // Adjust the entity field type to allow null
+  @Column({ type: 'varchar', length: 255, nullable: true })
+  type: string | null;
 
   viewOrders: any;
-
-  // Other fields and methods specific to your Campaign entity, if needed
 }

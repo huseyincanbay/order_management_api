@@ -19,7 +19,6 @@ export class OrderService {
     order.customerName = orderDto.customerName;
     order.product = orderDto.product;
     order.price = orderDto.price;
-    // Assuming you have a Campaign entity with ID matching the campaignId in orderDto.
     order.campaign = { id: orderDto.campaignId } as any;
 
     return this.orderRepository.save(order);
@@ -44,24 +43,19 @@ export class OrderService {
   }
 
   async updateOrder(id: number, orderDto: OrderDto): Promise<Order> {
-    // Retrieve the existing order by ID.
     const order = await this.getOrderById(id);
-
-    // Update the order entity with data from the DTO.
     order.customerName = orderDto.customerName;
     order.product = orderDto.product;
     order.price = orderDto.price;
 
-    // Update the campaign association if a campaign ID is provided.
     if (orderDto.campaignId) {
       const campaign = new Campaign();
       campaign.id = orderDto.campaignId;
       order.campaign = campaign;
     } else {
-      order.campaign = null; // Clear the campaign association if no campaign ID is provided.
+      order.campaign = null;
     }
 
-    // Save the updated order entity.
     return this.orderRepository.save(order);
   }
 

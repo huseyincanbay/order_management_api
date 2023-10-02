@@ -10,13 +10,13 @@ import {
 import { CampaignService } from './campaign.service';
 import { CampaignDto } from './dto/create-campaign.dto';
 import { Campaign } from './entities/campaign.entity';
-import { OrderService } from '../order/order.service'; // Import the OrderService
+import { OrderService } from '../order/order.service';
 
 @Controller('campaigns')
 export class CampaignController {
   constructor(
     private readonly campaignService: CampaignService,
-    private readonly orderService: OrderService, // Inject OrderService
+    private readonly orderService: OrderService,
   ) {}
 
   @Post()
@@ -66,7 +66,6 @@ export class CampaignController {
     return benefit;
   }
 
-  // Endpoint to select the most beneficial campaign for a specific order.
   @Get('select-most-beneficial/:orderId')
   async selectMostBeneficialCampaign(
     @Param('orderId') orderId: number,

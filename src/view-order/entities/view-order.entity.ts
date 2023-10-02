@@ -1,19 +1,17 @@
 // view-order.entity.ts
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('view_order') // Use the actual name of your database view
+@Entity('view_order') // we will use the actual name of our database view
 export class ViewOrder {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'order_number' }) // Map to the corresponding column name in your view
+  @Column({ name: 'order_number' })
   orderNumber: string;
 
-  @Column({ name: 'discounted_amount' }) // Map to the corresponding column name in your view
+  @Column({ name: 'discounted_amount' })
   discountedAmount: number;
 
-  @Column({ name: 'non_discounted_amount' }) // Map to the corresponding column name in your view
+  @Column({ name: 'non_discounted_amount' })
   nonDiscountedAmount: number;
-
-  // Add more columns as needed, mapping them to your view's column names
 }

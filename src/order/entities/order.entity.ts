@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { Campaign } from 'src/campaign/entities/campaign.entity'; // Import the Campaign Entity if you haven't already.
+import { Campaign } from 'src/campaign/entities/campaign.entity';
 
 @Entity()
 export class Order {
