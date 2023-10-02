@@ -1,4 +1,3 @@
-// view-order.entity.ts
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('view_order') // we will use the actual name of our database view

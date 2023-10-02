@@ -12,8 +12,9 @@ export class OrderDto {
   customerName: string;
 
   @IsNotEmpty()
-  @IsString()
-  product: string;
+  @IsNumber()
+  @IsPositive()
+  productId: number;
 
   @IsNotEmpty()
   @IsNumber()

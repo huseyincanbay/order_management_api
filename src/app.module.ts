@@ -8,6 +8,12 @@ import { ViewOrderModule } from './view-order/view-order.module';
 import { Order } from './order/entities/order.entity';
 import { Campaign } from './campaign/entities/campaign.entity';
 import { ViewOrder } from './view-order/entities/view-order.entity';
+import { ProductModule } from './product/product.module';
+import { CategoryModule } from './category/category.module';
+import { UserModule } from './user/user.module';
+import { Product } from './product/entities/product.entity';
+import { Category } from './category/entities/category.entity';
+import { User } from './user/entities/user.entity';
 
 @Module({
   imports: [
@@ -17,7 +23,7 @@ import { ViewOrder } from './view-order/entities/view-order.entity';
       port: 5432,
       password: '123',
       username: 'postgres',
-      entities: [Order, Campaign, ViewOrder],
+      entities: [Order, Campaign, ViewOrder, Product, Category, User],
       database: 'turkticaret-casestudy',
       synchronize: true,
       logging: true,
@@ -25,6 +31,9 @@ import { ViewOrder } from './view-order/entities/view-order.entity';
     OrderModule,
     CampaignModule,
     ViewOrderModule,
+    ProductModule,
+    CategoryModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

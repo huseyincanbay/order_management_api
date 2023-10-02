@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { Campaign } from 'src/campaign/entities/campaign.entity';
+import { Product } from 'src/product/entities/product.entity';
 
 @Entity()
 export class Order {
@@ -9,8 +10,8 @@ export class Order {
   @Column()
   customerName: string;
 
-  @Column()
-  product: string;
+  @ManyToOne(() => Product, { eager: true })
+  product: Product;
 
   @Column('decimal', { precision: 10, scale: 2 })
   price: number;

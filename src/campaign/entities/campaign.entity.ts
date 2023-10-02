@@ -1,4 +1,3 @@
-// campaign.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Order } from 'src/order/entities/order.entity';
 

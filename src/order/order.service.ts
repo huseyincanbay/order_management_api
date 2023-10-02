@@ -6,20 +6,37 @@ import { Repository } from 'typeorm';
 import { Order } from './entities/order.entity';
 import { OrderDto } from './dto/create-order.dto';
 import { Campaign } from 'src/campaign/entities/campaign.entity';
+import { Product } from 'src/product/entities/product.entity';
 
 @Injectable()
 export class OrderService {
   constructor(
     @InjectRepository(Order)
     private readonly orderRepository: Repository<Order>,
+    @InjectRepository(Product)
+    private readonly productRepository: Repository<Product>,
   ) {}
 
   async createOrder(orderDto: OrderDto): Promise<Order> {
     const order = new Order();
     order.customerName = orderDto.customerName;
-    order.product = orderDto.product;
     order.price = orderDto.price;
     order.campaign = { id: orderDto.campaignId } as any;
+
+    // Fetch the product from the database
+    const product = await this.productRepository
+      .createQueryBuilder('product')
+      .leftJoinAndSelect('product.category', 'category')
+      .where('product.id = :productId', { productId: orderDto.productId })
+      .getOne();
+
+    if (!product) {
+      throw new NotFoundException(
+        `Product with ID ${orderDto.productId} not found`,
+      );
+    }
+
+    order.product = product;
 
     return this.orderRepository.save(order);
   }
@@ -45,8 +62,24 @@ export class OrderService {
   async updateOrder(id: number, orderDto: OrderDto): Promise<Order> {
     const order = await this.getOrderById(id);
     order.customerName = orderDto.customerName;
-    order.product = orderDto.product;
     order.price = orderDto.price;
+
+    if (orderDto.productId) {
+      const product = await this.productRepository
+        .createQueryBuilder('product')
+        .where('product.id = :productId', { productId: orderDto.productId })
+        .getOne();
+
+      if (!product) {
+        throw new NotFoundException(
+          `Product with ID ${orderDto.productId} not found`,
+        );
+      }
+
+      order.product = product;
+    } else {
+      order.product = null;
+    }
 
     if (orderDto.campaignId) {
       const campaign = new Campaign();

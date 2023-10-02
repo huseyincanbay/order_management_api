@@ -1,4 +1,3 @@
-// order-detail-view.controller.ts
 import { Controller, Get, Param } from '@nestjs/common';
 import { OrderDetailViewService } from './view-order.service';
 import { OrderDetailsDto } from './dto/create-view-order.dto';
