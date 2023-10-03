@@ -1,5 +1,3 @@
-// order.service.ts
-
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -23,7 +21,6 @@ export class OrderService {
     order.price = orderDto.price;
     order.campaign = { id: orderDto.campaignId } as any;
 
-    // Fetch the product from the database
     const product = await this.productRepository
       .createQueryBuilder('product')
       .leftJoinAndSelect('product.category', 'category')

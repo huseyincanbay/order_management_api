@@ -1,5 +1,3 @@
-// src/modules/category/category.entity.ts
-
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Product } from 'src/product/entities/product.entity';
 
