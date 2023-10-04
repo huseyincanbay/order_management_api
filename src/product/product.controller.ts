@@ -1,5 +1,3 @@
-// product.controller.ts
-
 import {
   Controller,
   Get,

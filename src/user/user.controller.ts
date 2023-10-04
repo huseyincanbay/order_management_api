@@ -2,41 +2,68 @@ import {
   Controller,
   Get,
   Post,
-  Body,
-  Patch,
-  Param,
+  Put,
   Delete,
+  Param,
+  Body,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from './entities/user.entity';
 
-@Controller('user')
+@Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.userService.findAll();
+  async createUser(@Body() userDto: CreateUserDto): Promise<User> {
+    try {
+      const user = await this.userService.createUser(userDto);
+      return user;
+    } catch (error) {
+      throw new Error('Custom error message for create user');
+    }
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+  async getUserById(@Param('id') id: number): Promise<User> {
+    try {
+      const user = await this.userService.getUserById(id);
+      return user;
+    } catch (error) {
+      throw new Error('Custom error message for get user by ID');
+    }
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
+  @Get()
+  async getAllUsers(): Promise<User[]> {
+    try {
+      const users = await this.userService.getAllUsers();
+      return users;
+    } catch (error) {
+      throw new Error('Custom error message for get all users');
+    }
+  }
+
+  @Put(':id')
+  async updateUser(
+    @Param('id') id: number,
+    @Body() userDto: CreateUserDto,
+  ): Promise<User> {
+    try {
+      const user = await this.userService.updateUser(id, userDto);
+      return user;
+    } catch (error) {
+      throw new Error('Custom error message for update user');
+    }
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+  async deleteUserById(@Param('id') id: number): Promise<void> {
+    try {
+      await this.userService.deleteUserById(id);
+    } catch (error) {
+      throw new Error('Custom error message for delete user');
+    }
   }
 }
