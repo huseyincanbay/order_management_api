@@ -14,6 +14,8 @@ import { UserModule } from './user/user.module';
 import { Product } from './product/entities/product.entity';
 import { Category } from './category/entities/category.entity';
 import { User } from './user/entities/user.entity';
+import { AuthModule } from './auth/auth.module';
+import { Auth } from './auth/entities/auth-entities';
 
 @Module({
   imports: [
@@ -23,7 +25,7 @@ import { User } from './user/entities/user.entity';
       port: 5432,
       password: '123',
       username: 'postgres',
-      entities: [Order, Campaign, ViewOrder, Product, Category, User],
+      entities: [Order, Campaign, ViewOrder, Product, Category, User, Auth],
       database: 'turkticaret-casestudy',
       synchronize: true,
       logging: true,
@@ -34,6 +36,7 @@ import { User } from './user/entities/user.entity';
     ProductModule,
     CategoryModule,
     UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
